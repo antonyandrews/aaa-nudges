@@ -1,10 +1,9 @@
-import { Box, Button, Card, CardContent, CardHeader, Checkbox, Chip, Divider, Grid, IconButton, InputAdornment, List, ListItem, ListItemText, Paper, Stack, TextField } from "@mui/material";
+import { Box, Card, CardContent, CardHeader, Checkbox, Chip, Grid, IconButton, InputAdornment, ListItem, ListItemText, Stack, TextField } from "@mui/material";
 import React, { useState } from "react";
-import styled from "styled-components";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
+import * as StyleClasses from "./../styles/nudges.styles";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-
 
 interface RightPanelProps {
   category: string;
@@ -21,48 +20,6 @@ interface Task {
   done: boolean;
   subtasks: SubTask[]
 }
-
-const RightBoxContent = styled(Paper)`
-  padding: 1rem;
-  min-height: calc(100vh - 3rem);
-`;
-
-const TaskListContent = styled(List)`
-  height: calc(100vh - 9rem);
-  min-height: calc(100vh - 9rem);
-  overflow-y: auto;
-  margin-top: 1.5rem;
-`;
-
-const SubTaskList = styled(Paper)`
-  min-height: calc(100vh - 19rem);
-  height: calc(100vh - 19rem);
-  overflow-y: auto;
-  padding: 1rem;
-  margin-top: 0.5rem;
-`;
-
-const CustomTextField = styled(TextField)`
-  margin-bottom: 1rem;
-`;
-
-const NotesListItem = styled(ListItem)`
-  background-color: #FDFFB6; /* Light yellow */
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  font-size: 16px;
-  color: #333;
-  position: relative;
-  margin-bottom: 1rem;
-  text-align: center;
-  justify-content: center;
-  padding: 0.5rem 0;
-`;
-
-const SubmitButton = styled(Button)`
-  margin-left: 1rem;
-  align-content: center;
-`;
 
 export default function NewNudge({ category }: RightPanelProps) {
   const [items, setItems] = useState<Record<string, Task[]>>({
@@ -176,8 +133,8 @@ export default function NewNudge({ category }: RightPanelProps) {
 
   return (
     <Grid container spacing={2}>
-      <Grid size={6}>
-        <RightBoxContent>
+      <Grid size={{ xs: 12, sm: 6, md: 6, lg:6 }}>
+        <StyleClasses.RightBoxContent>
           <TextField
             fullWidth
             label={category ? `Enter ${category} task` : 'Enter task'}
@@ -185,10 +142,10 @@ export default function NewNudge({ category }: RightPanelProps) {
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={addNewTask} />
 
-          {currentItems.length ? (<TaskListContent>
+          {currentItems.length ? (<StyleClasses.TaskListContent>
             {currentItems.map((task: Task, index: number) => (
               <div key={index}>
-                <ListItem secondaryAction={
+                <StyleClasses.TaskListItem secondaryAction={
                   <IconButton edge="end" aria-label="comments" onClick={() => deleteTask(index)}>
                     <DeleteIcon />
                   </IconButton>
@@ -200,24 +157,23 @@ export default function NewNudge({ category }: RightPanelProps) {
                   <ListItemText
                     primary={task.name}
                   />
-                </ListItem>
+                </StyleClasses.TaskListItem>
               </div>
             ))}
-          </TaskListContent>) : (<span></span>)}
+          </StyleClasses.TaskListContent>) : (<span></span>)}
 
-        </RightBoxContent>
+        </StyleClasses.RightBoxContent>
       </Grid>
       {
         selectedTaskId != -1 ? (
-          <Grid size={6}>
+          <Grid size={{ xs: 12, sm: 6, md: 6, lg:6 }}>
             <Card>
               <CardHeader
-                action={<Checkbox />}
                 title="Add Subtask"
               />
               <CardContent>
                 <form onSubmit={handleSubmit}>
-                  <CustomTextField
+                  <StyleClasses.CustomTextField
                     label="Enter Subtask"
                     value={subtaskTitle}
                     fullWidth
@@ -232,7 +188,7 @@ export default function NewNudge({ category }: RightPanelProps) {
                       },
                     }}
                   />
-                  <CustomTextField
+                  <StyleClasses.CustomTextField
                     label="Enter Date"
                     value={subtaskDate}
                     onChange={(e) => handleDateChange(e)}
@@ -246,11 +202,11 @@ export default function NewNudge({ category }: RightPanelProps) {
                       },
                     }}
                   />
-                  <SubmitButton variant="outlined" type="submit">Add Subtask</SubmitButton>
+                  <StyleClasses.SubmitButton variant="outlined" type="submit">Add Subtask</StyleClasses.SubmitButton>
                 </form>
               </CardContent>
             </Card>
-            <SubTaskList>
+            <StyleClasses.SubTaskList>
               {currentItems.map((task: Task, index: number) => (
                 <div key={index}>
                   {index === selectedTaskId ? (
@@ -258,7 +214,7 @@ export default function NewNudge({ category }: RightPanelProps) {
                       {
                         task.subtasks.map((subTask: SubTask, stindex: number) => (
                           <div key={stindex}>
-                            <NotesListItem disablePadding alignItems="flex-start">
+                            <StyleClasses.NotesListItem disablePadding alignItems="flex-start">
                               <Box sx={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
                                   <Checkbox
@@ -281,7 +237,7 @@ export default function NewNudge({ category }: RightPanelProps) {
                                   </Stack>
                                 </Box>
                               </Box>
-                            </NotesListItem>
+                            </StyleClasses.NotesListItem>
                           </div>
                         ))
                       }
@@ -292,7 +248,7 @@ export default function NewNudge({ category }: RightPanelProps) {
                   )}
                 </div>
               ))}
-            </SubTaskList>
+            </StyleClasses.SubTaskList>
           </Grid>) : (<span></span>)
       }
 

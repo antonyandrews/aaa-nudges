@@ -1,12 +1,8 @@
-import { styled } from "@mui/material/styles";
+import * as StyleClasses from "./../styles/nudges.styles";
 import AddToQueueRoundedIcon from '@mui/icons-material/AddToQueueRounded';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import HomeRepairServiceRoundedIcon from '@mui/icons-material/HomeRepairServiceRounded';
-import { Paper, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-
-const LeftBox = styled(Paper)`
-  height: calc(100vh - 1rem);
-`;
+import { List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 interface NudgeListProps {
   onSelect: (text: string) => void;
@@ -14,7 +10,7 @@ interface NudgeListProps {
 
 export default function NudgeList({ onSelect }: NudgeListProps) {
   return (
-    <LeftBox elevation={3}>
+    <StyleClasses.LeftBox elevation={3}>
       <nav aria-label="main mailbox folders">
         <List>
           <ListItem disablePadding>
@@ -43,6 +39,7 @@ export default function NudgeList({ onSelect }: NudgeListProps) {
           </ListItem>
         </List>
       </nav>
-    </LeftBox>
+    </StyleClasses.LeftBox>
+
   );
 }
