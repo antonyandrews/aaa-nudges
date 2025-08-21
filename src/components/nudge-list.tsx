@@ -5,7 +5,7 @@ import HomeRepairServiceRoundedIcon from '@mui/icons-material/HomeRepairServiceR
 import { Paper, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 
 const LeftBox = styled(Paper)`
-  height: 100vh;
+  height: calc(100vh - 1rem);
 `;
 
 interface NudgeListProps {
